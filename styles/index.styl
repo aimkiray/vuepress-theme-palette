@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@require "./code"
+
+body
+  margin: 0
+  padding: 0
+  text-rendering: optimizeLegibility
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
+  position: relative
+  min-height: 100vh
+  font-size: 16px
+  color: $textColor
+
+a
+  font-weight 400
+  color $linkColor
+  text-decoration none
+
+.content-wrapper
+  max-width: $contentWidth;
+  margin: 0 auto;
+
+  ul, ol
+    list-style-type disc
+    padding-left 1.6em
+    margin: .7rem 0
+
+  li
+    margin .2rem 0
+
+  p
+    margin-bottom: 20px;
+    line-height: 1.75em;
+
+  kbd
+    background #eee
+    border solid 0.15rem #ddd
+    border-bottom solid 0.25rem #ddd
+    border-radius 0.15rem
+    padding 0 0.15em
+
+  blockquote
+    font-size .9rem
+    color #999
+    border-left .5rem solid #dfe2e5
+    margin 0.5rem 0
+    padding .25rem 0 .25rem 1rem
+
+    & > p
+      margin 0
+
+  strong
+    font-weight 600
+
+  h1, h2, h3, h4, h5, h6
+    font-weight 700
+    margin: 40px auto 30px auto
+    line-height 1.75rem
+
+    .content-wrapper > &
+      margin-bottom 0
+
+      &:first-child
+        margin-bottom 1rem
+
+        + p, + pre, + .custom-block
+          margin-top 2rem
+
+  h1 {
+    font-size: 1.8em
+  }
+
+  h2 {
+    font-size: 1.6em
+  }
+
+  h3 {
+    font-size: 1.4em
+  }
+
+  h4 {
+    font-size: 1.2em
+  }
+
+  h5 {
+    font-size: 1em
+  }
+
+  h6 {
+    font-size: 1em
+  }
+
+  a.header-anchor
+    font-size 0.85em
+    float left
+    margin-left -0.87em
+    padding-right 0.23em
+    margin-top 0.125em
+    opacity 1
+
+    &:hover
+      text-decoration none
+
+    @media (max-width: $mobleWidth)
+      opacity 0
+
+  code, kbd, .line-number
+    font-family source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace
+
+  hr
+    border 0
+    border-top 1px solid $borderColor
+
+  table
+    border-collapse collapse
+    margin 1rem 0
+    display: block
+    overflow-x: auto
+
+  tr
+    border-top 1px solid #dfe2e5
+
+    &:nth-child(2n)
+      background-color #f6f8fa
+
+  th, td
+    border 1px solid #dfe2e5
+    padding .6em 1em
