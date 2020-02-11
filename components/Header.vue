@@ -1,14 +1,9 @@
 <template>
     <div class="header-wrapper">
-        <!--        <header style="background-color: #DDD">-->
-        <!--            <router-link to="/">{{ $site.title }}</router-link>-->
-        <!--            ·-->
-        <!--            <router-link to="/tag/">Tag</router-link>-->
-        <!--        </header>-->
         <div id="textAnime" class="wave"></div>
 
-        <div class="title">
-            <router-link to="/">{{ $site.title }}</router-link>
+        <div class="title-wrapper">
+            <router-link to="/" class="title">{{ $site.title }}</router-link>
         </div>
         <div class="header-right-wrap">
             <ul v-if="$themeConfig.nav" class="nav">
@@ -45,7 +40,7 @@
             //stocks possible character attributes
             const layers = {
                 n: 5, //number of layers
-                letters: [100, 40, 30, 20, 10], //letters per layer (starting from the deepest layer)
+                letters: [textAnime.offsetWidth/15, textAnime.offsetWidth/30, textAnime.offsetWidth/35, textAnime.offsetWidth/40, textAnime.offsetWidth/45],
                 coef: [0.1, 0.2, 0.4, 0.6, 0.8], //how much the letters move from the mouse (starting from the deepest layer)
                 size: [16, 22, 36, 40, 46], //font size of the letters (starting from the deepest layer)
                 color: ['#fff', '#eee', '#ccc', '#bbb', '#aaa'], //color of the letters (starting from the deepest layer)
@@ -57,7 +52,7 @@
 
             let characters = [];
             let mouseX = textAnime.offsetWidth / 2;
-            let mouseY = textAnime.offsetHeight / 2;
+            let mouseY = textAnime.offsetHeight / 3;
 
             const rnd = {
                 btwn: function (min, max) {
@@ -165,7 +160,6 @@
 </script>
 
 <style lang="stylus">
-    @import '~@app/style/config';
 
     .wave {
         height $headerHeight;
@@ -182,20 +176,14 @@
         }
 
         .title {
+            font-family: 'Press Start 2P', cursive;
             display: inline-block;
             padding-right: 5px;
-            border-right: 10px solid #fff;
+            border-right: 10px solid $linkColor;
             animation: blink 1s infinite;
             @media screen and (max-width: 370px) {
                 font-size: 14px;
-                border-right: 4px solid #fff;
-            }
-
-            a {
-                color: $darkTextColor;
-                font-weight: bold;
-                font-family: Serif;
-                text-decoration: none;
+                border-right: 4px solid $linkColor;
             }
         }
 
@@ -207,10 +195,10 @@
                 border-right-color: transparent;
             }
             51% {
-                border-right-color: #fff;
+                border-right-color: $linkColor;
             }
             100% {
-                border-right-color: #fff;
+                border-right-color: $linkColor;
             }
         }
 
