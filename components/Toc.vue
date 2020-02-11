@@ -1,5 +1,5 @@
 <template>
-  <Sticker v-if="visible" class="vuepress-toc" v-bind="$attrs">
+  <Sticker id="vuepressToc" v-if="visible" class="vuepress-toc" v-bind="$attrs">
     <div
       v-for="(item, index) in $page.headers"
       ref="chairTocItem"
@@ -17,7 +17,7 @@
 
 <script>
 import Sticker from './Sticker.vue'
-let initTop
+let initTop;
 
 // get offset top
 function getAbsoluteTop(dom) {
@@ -51,12 +51,12 @@ export default {
 
   watch: {
     activeIndex() {
-      const items = this.$refs.chairTocItem || []
-      const dom = items[this.activeIndex]
-      if (!dom) return
-      const rect = dom.getBoundingClientRect()
-      const wrapperRect = this.$el.getBoundingClientRect()
-      const top = rect.top - wrapperRect.top
+      const items = this.$refs.chairTocItem || [];
+      const dom = items[this.activeIndex];
+      if (!dom) return;
+      const rect = dom.getBoundingClientRect();
+      const wrapperRect = this.$el.getBoundingClientRect();
+      const top = rect.top - wrapperRect.top;
       if (top < 20) {
         this.$el.scrollTop = this.$el.scrollTop + top - 20
       } else if (top + rect.height > wrapperRect.height) {
@@ -71,27 +71,27 @@ export default {
     // sync visible to parent component
     const syncVisible = () => {
       this.$emit('visible-change', this.visible)
-    }
-    syncVisible()
-    this.$watch('visible', syncVisible)
+    };
+    syncVisible();
+    this.$watch('visible', syncVisible);
 
     // binding event
-    setTimeout(() => this.triggerEvt(), 1000)
+    setTimeout(() => this.triggerEvt(), 1000);
 
-    this._onScroll = () => this.onScroll()
+    this._onScroll = () => this.onScroll();
     this._onHashChange = () => {
-      const hash = decodeURIComponent(location.hash.substring(1))
-      const index = (this.$page.headers || []).findIndex(h => h.slug === hash)
-      if (index >= 0) this.activeIndex = index
-      const dom = hash && document.getElementById(hash)
+      const hash = decodeURIComponent(location.hash.substring(1));
+      const index = (this.$page.headers || []).findIndex(h => h.slug === hash);
+      if (index >= 0) this.activeIndex = index;
+      const dom = hash && document.getElementById(hash);
       if (dom) window.scrollTo(0, getAbsoluteTop(dom) - 20)
-    }
+    };
     window.addEventListener('scroll', this._onScroll)
     // window.addEventListener('hashchange', this._onHashChange);
   },
 
   beforeDestroy() {
-    window.removeEventListener('scroll', this._onScroll)
+    window.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('hashchange', this._onHashChange)
   },
 
@@ -103,29 +103,40 @@ export default {
 
       // update position
       const scrollTop =
-        document.body.scrollTop + document.documentElement.scrollTop
-      const headings = this.$page.headers || []
+        document.body.scrollTop + document.documentElement.scrollTop;
+      const headings = this.$page.headers || [];
 
-      // change active toc with scrolling
-      let i = 0
-      const addLink = index => {
-        this.activeIndex = index
+      const tocElement = document.getElementById("vuepressToc");
+      if (scrollTop >= 400) {
+        tocElement.classList.remove("hide-element");
+        tocElement.classList.add("show-element");
       }
 
+      if (scrollTop < 400 && tocElement.classList.contains("show-element")) {
+        tocElement.classList.remove("show-element");
+        tocElement.classList.add("hide-element");
+      }
+
+      // change active toc with scrolling
+      let i = 0;
+      const addLink = index => {
+        this.activeIndex = index
+      };
+
       for (; i < headings.length; i++) {
-        const dom = document.getElementById(headings[i].slug)
-        const top = getAbsoluteTop(dom)
+        const dom = document.getElementById(headings[i].slug);
+        const top = getAbsoluteTop(dom);
         if (top - 50 < scrollTop) {
           addLink(i)
         } else {
-          if (!i) addLink(i)
+          if (!i) addLink(i);
           break
         }
       }
     },
 
     triggerEvt() {
-      this._onScroll()
+      this._onScroll();
       this._onHashChange()
     },
   },
@@ -147,6 +158,7 @@ export default {
   right 10px
   box-sizing border-box
   z-index 0
+  opacity 0
 
   .vuepress-toc-item
     position relative

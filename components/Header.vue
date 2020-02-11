@@ -161,6 +161,9 @@
 
 <style lang="stylus">
 
+    .title-wrapper
+        padding-left 2px
+
     .wave {
         height $headerHeight;
     }
