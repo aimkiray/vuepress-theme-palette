@@ -676,6 +676,14 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@fullhuman/postcss-purgecss@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@fullhuman/postcss-purgecss/-/postcss-purgecss-1.3.0.tgz#d632900d818f4fcf4678e7326923fb838c3e03a7"
+  integrity sha512-zvfS3dPKD2FAtMcXapMJXGbDgEp9E++mLR6lTgSruv6y37uvV5xJ1crVktuC1gvnmMwsa7Zh1m05FeEiz4VnIQ==
+  dependencies:
+    postcss "^7.0.14"
+    purgecss "^1.4.0"
+
 "@fullhuman/postcss-purgecss@^2.0.6":
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/@fullhuman/postcss-purgecss/-/postcss-purgecss-2.0.6.tgz#55612eda275e6a86a8d4a03e9deb58b2e95dd6f1"
@@ -728,6 +736,15 @@
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
+
+"@silvanite/vuepress-plugin-tailwind@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@silvanite/vuepress-plugin-tailwind/-/vuepress-plugin-tailwind-1.2.0.tgz#2e1e6d10e441b49c7446bbb99e7fe8ec80aee273"
+  integrity sha512-1LWlIa+g1vV6HkwwEmADAhnuZ33oAGidnbrCs7qnK53ApbtWa9K/+0cHCLhDeQ3zqoyotqK7YQR2sm5nCOTYqA==
+  dependencies:
+    "@fullhuman/postcss-purgecss" "^1.3.0"
+    lodash "^4.17.15"
+    tailwindcss "^1.1.2"
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
@@ -2034,6 +2051,15 @@ cliui@^4.0.0:
     string-width "^2.1.1"
     strip-ansi "^4.0.0"
     wrap-ansi "^2.0.0"
+
+cliui@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/cliui/-/cliui-5.0.0.tgz#deefcfdb2e800784aa34f46fa08e06851c7bbbc5"
+  integrity sha512-PYeGSEmmHM6zvoef2w8TPzlrnNpXIjTipYK780YswmIP9vjxmd6Y2a3CB2Ks6/AU8NHjZugXvo8w3oWM2qnwXA==
+  dependencies:
+    string-width "^3.1.0"
+    strip-ansi "^5.2.0"
+    wrap-ansi "^5.1.0"
 
 coa@^2.0.2:
   version "2.0.2"
@@ -3401,6 +3427,11 @@ get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
   integrity sha512-3t6rVToeoZfYSGd8YoLFR2DJkiQrIiUrGcjvFX2mDw3bn6k2OtwHN0TNCLbBO+w8qTvimhDkv+LSscbJY1vE6w==
+
+get-caller-file@^2.0.1:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
+  integrity sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==
 
 get-own-enumerable-property-symbols@^3.0.0:
   version "3.0.2"
@@ -5934,6 +5965,16 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
+purgecss@^1.4.0:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/purgecss/-/purgecss-1.4.2.tgz#67ab50cb4f5c163fcefde56002467c974e577f41"
+  integrity sha512-hkOreFTgiyMHMmC2BxzdIw5DuC6kxAbP/gGOGd3MEsF3+5m69rIvUEPaxrnoUtfODTFKe9hcXjGwC6jcjoyhOw==
+  dependencies:
+    glob "^7.1.3"
+    postcss "^7.0.14"
+    postcss-selector-parser "^6.0.0"
+    yargs "^14.0.0"
+
 purgecss@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/purgecss/-/purgecss-2.0.6.tgz#fc0a03f9533448635309af5979b094aab57ff361"
@@ -6218,6 +6259,11 @@ require-main-filename@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-1.0.1.tgz#97f717b69d48784f5f526a6c5aa8ffdda055a4d1"
   integrity sha1-l/cXtp1IeE9fUmpsWqj/3aBVpNE=
+
+require-main-filename@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
+  integrity sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==
 
 requires-port@^1.0.0:
   version "1.0.0"
@@ -6764,7 +6810,7 @@ string-width@^2.0.0, string-width@^2.1.1:
     is-fullwidth-code-point "^2.0.0"
     strip-ansi "^4.0.0"
 
-string-width@^3.0.0:
+string-width@^3.0.0, string-width@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-3.1.0.tgz#22767be21b62af1081574306f69ac51b62203961"
   integrity sha512-vafcv6KjVZKSgz06oM/H6GDBrAtz8vdhQakGjFIvNrHA6y3HCF1CInLy+QLq8dTJPQ1b+KDUqDFctkdRW44e1w==
@@ -6826,7 +6872,7 @@ strip-ansi@^4.0.0:
   dependencies:
     ansi-regex "^3.0.0"
 
-strip-ansi@^5.0.0, strip-ansi@^5.1.0:
+strip-ansi@^5.0.0, strip-ansi@^5.1.0, strip-ansi@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-5.2.0.tgz#8c9a536feb6afc962bdfa5b104a5091c1ad9c0ae"
   integrity sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==
@@ -6938,7 +6984,7 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-tailwindcss@^1.2.0:
+tailwindcss@^1.1.2, tailwindcss@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-1.2.0.tgz#5df317cebac4f3131f275d258a39da1ba3a0f291"
   integrity sha512-CKvY0ytB3ze5qvynG7qv4XSpQtFNGPbu9pUn8qFdkqgD8Yo/vGss8mhzbqls44YCXTl4G62p3qVZBj45qrd6FQ==
@@ -7929,6 +7975,14 @@ yargs-parser@^11.1.1:
     camelcase "^5.0.0"
     decamelize "^1.2.0"
 
+yargs-parser@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-15.0.0.tgz#cdd7a97490ec836195f59f3f4dbe5ea9e8f75f08"
+  integrity sha512-xLTUnCMc4JhxrPEPUYD5IBR1mWCK/aT6+RJ/K29JY2y1vD+FhtgKK0AXRWvI262q3QSffAQuTouFIKUuHX89wQ==
+  dependencies:
+    camelcase "^5.0.0"
+    decamelize "^1.2.0"
+
 yargs@12.0.5:
   version "12.0.5"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-12.0.5.tgz#05f5997b609647b64f66b81e3b4b10a368e7ad13"
@@ -7946,6 +8000,23 @@ yargs@12.0.5:
     which-module "^2.0.0"
     y18n "^3.2.1 || ^4.0.0"
     yargs-parser "^11.1.1"
+
+yargs@^14.0.0:
+  version "14.2.2"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-14.2.2.tgz#2769564379009ff8597cdd38fba09da9b493c4b5"
+  integrity sha512-/4ld+4VV5RnrynMhPZJ/ZpOCGSCeghMykZ3BhdFBDa9Wy/RH6uEGNWDJog+aUlq+9OM1CFTgtYRW5Is1Po9NOA==
+  dependencies:
+    cliui "^5.0.0"
+    decamelize "^1.2.0"
+    find-up "^3.0.0"
+    get-caller-file "^2.0.1"
+    require-directory "^2.1.1"
+    require-main-filename "^2.0.0"
+    set-blocking "^2.0.0"
+    string-width "^3.0.0"
+    which-module "^2.0.0"
+    y18n "^4.0.0"
+    yargs-parser "^15.0.0"
 
 zepto@^1.2.0:
   version "1.2.0"

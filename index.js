@@ -64,7 +64,7 @@ module.exports = themeConfig => {
         summaryLength:
             typeof themeConfig.summaryLength === 'number'
                 ? themeConfig.summaryLength
-                : 80,
+                : 90,
         pwa: !!themeConfig.pwa,
     });
 
@@ -77,6 +77,7 @@ module.exports = themeConfig => {
                 id: 'post',
                 dirname: '_posts',
                 path: '/',
+                itemPermalink: '/:slug',
             },
         ],
         frontmatters: [
@@ -108,9 +109,9 @@ module.exports = themeConfig => {
         } = themeConfig.feed;
         resolvedFeedOptions = Object.assign({}, feedOptions, {
             feeds: {
-                rss2: { enable: rss },
-                atom1: { enable: atom },
-                json1: { enable: json },
+                rss2: {enable: rss},
+                atom1: {enable: atom},
+                json1: {enable: json},
             },
         })
     }
@@ -151,6 +152,13 @@ module.exports = themeConfig => {
         ],
         ['@vuepress/blog', blogPluginOptions],
         ['smooth-scroll', enableSmoothScroll],
+        [
+            "@silvanite/tailwind",
+            {
+                config: "./tailwind.config.js",
+                purgecss: {enabled: process.env.NODE_ENV === "production"}
+            }
+        ],
     ];
 
     /**

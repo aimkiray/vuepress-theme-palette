@@ -107,12 +107,12 @@ export default {
       const headings = this.$page.headers || [];
 
       const tocElement = document.getElementById("vuepressToc");
-      if (scrollTop >= 400) {
+      if (scrollTop >= 200) {
         tocElement.classList.remove("hide-element");
         tocElement.classList.add("show-element");
       }
 
-      if (scrollTop < 400 && tocElement.classList.contains("show-element")) {
+      if (scrollTop < 200 && tocElement.classList.contains("show-element")) {
         tocElement.classList.remove("show-element");
         tocElement.classList.add("hide-element");
       }

@@ -144,9 +144,9 @@
 
     .custom-post-summary
         font-size 1rem
-        color rgba($darkTextColor, 0.54)
+        color $grayTextColor
         font-weight 400
-        margin-bottom 0
+        margin-bottom .5rem
 
     .custom-post-meta
         display inline-flex
@@ -165,21 +165,19 @@
             height 14px
 
         @media (max-width: $mobleWidth)
-            display flex
-
             &:not(:last-child)
                 margin-bottom 10px
 
     .custom-post-author
-        color rgba($darkTextColor, 0.84)
+        color $grayTextColor
         font-weight 600
 
     .custom-post-date
-        color rgba($darkTextColor, 0.54)
+        color $grayTextColor
         font-weight 400
 
     .custom-post-tag
-        color rgba($darkTextColor, 0.54)
+        color $grayTextColor
         font-weight 400
 
         a

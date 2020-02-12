@@ -7,6 +7,7 @@
   "license": "MIT",
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^2.0.6",
+    "@silvanite/vuepress-plugin-tailwind": "^1.2.0",
     "@vuepress/plugin-active-header-links": "^1.3.0",
     "@vuepress/plugin-back-to-top": "^1.3.0",
     "@vuepress/plugin-blog": "latest",
@@ -27,7 +28,9 @@
     "components"
   ],
   "scripts": {
-    "dev": "vuepress dev docs",
-    "build": "vuepress build docs"
+    "dev": "NODE_ENV=development vuepress dev docs",
+    "build": "vuepress build docs",
+    "prod": "npm run production",
+    "production": "NODE_ENV=production vuepress build docs"
   }
 }
