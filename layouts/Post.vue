@@ -1,7 +1,7 @@
 <template>
-    <div id="postArea" class="font-sans text-base md:text-lg">
+    <div class="font-sans text-base md:text-lg">
         <div class="content-wrapper flex items-center">
-            <div class="w-full md:mx-auto">
+            <div class="w-full md:mx-auto content-border">
                 <div class="px-2 py-0 md:px-20 md:py-0 bg-white">
                     <div class="post-header">
                         <h1 class="post-title">{{ $frontmatter.title }}</h1>

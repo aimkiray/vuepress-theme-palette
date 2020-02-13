@@ -1,46 +1,3 @@
-// module.exports = {
-//     plugins: [
-//         [
-//             '@vuepress/blog',
-//             {
-//                 frontmatters: [
-//                     {
-//                         // Unique ID of current classification
-//                         id: 'tag',
-//                         // Decide that the frontmatter keys will be grouped under this classification
-//                         keys: ['tag'],
-//                         // Path of the `entry page` (or `list page`)
-//                         path: '/tag/',
-//                         // Layout of the `entry page`
-//                         layout: 'Tags',
-//                         // Layout of the `scope page`
-//                         scopeLayout: 'Tag'
-//                     },
-//                 ],
-//                 directories: [
-//                     {
-//                         id: 'post',
-//                         dirname: '_posts',
-//                         path: '/',
-//                         pagination: {
-//                             lengthPerPage: 6,
-//                         },
-//                     },
-//                 ],
-//                 comment: {
-//                     // Which service you'd like to use
-//                     service: 'disqus',
-//                     // The owner's name of repository to store the issues and comments.
-//                     shortname: 'meowwoo',
-//                 },
-//                 sitemap: {
-//                     hostname: 'https://meowwoo.com'
-//                 },
-//             },
-//         ],
-//     ],
-// };
-
 const removeMd = require('remove-markdown');
 const path = require('path');
 const pick = require('lodash/pick');
@@ -63,8 +20,7 @@ module.exports = themeConfig => {
         summary: themeConfig.summary === undefined ? true : themeConfig.summary,
         summaryLength:
             typeof themeConfig.summaryLength === 'number'
-                ? themeConfig.summaryLength
-                : 90,
+                ? themeConfig.summaryLength : 90,
         pwa: !!themeConfig.pwa,
     });
 
@@ -75,9 +31,9 @@ module.exports = themeConfig => {
         directories: [
             {
                 id: 'post',
-                dirname: '_posts',
+                dirname: 'note',
                 path: '/',
-                itemPermalink: '/:slug',
+                itemPermalink: '/:regular',
             },
         ],
         frontmatters: [
@@ -153,12 +109,12 @@ module.exports = themeConfig => {
         ['@vuepress/blog', blogPluginOptions],
         ['smooth-scroll', enableSmoothScroll],
         [
-            "@silvanite/tailwind",
+            '@vuepress/google-analytics',
             {
-                config: "./tailwind.config.js",
-                purgecss: {enabled: process.env.NODE_ENV === "production"}
+                'ga': 'UA-110966400-1'
             }
         ],
+        ['@vuepress/back-to-top'],
     ];
 
     /**

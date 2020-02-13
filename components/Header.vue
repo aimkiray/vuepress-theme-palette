@@ -20,8 +20,8 @@
         .title
             font-family: 'Press Start 2P', cursive;
             display: inline-block;
-            padding-left: .5rem;
-            padding-right: 5px;
+            padding 0 .3rem 0 .5rem
+            margin-bottom .5rem
             border-right: 12px solid $linkColor;
             animation: blink 1s infinite;
             font-size 2rem

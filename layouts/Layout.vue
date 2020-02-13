@@ -1,29 +1,31 @@
 <template>
     <div class="content-wrapper flex items-center">
-        <div class="w-full md:mx-auto">
+        <div class="w-full md:mx-auto content-border">
             <div class="px-2 py-5 md:px-20 md:py-10 bg-white">
-                <div class="custom-post-list">
-                    <div class="custom-post" v-for="page in $pagination.pages" :key="page.key">
-                        <div class="custom-post-title">
-                            <router-link :to="page.path">{{ page.title }}</router-link>
-                        </div>
+                <div class="font-sans text-base md:text-lg">
+                    <div class="custom-post-list">
+                        <div class="custom-post" v-for="page in $pagination.pages" :key="page.key">
+                            <div class="custom-post-title">
+                                <router-link :to="page.path">{{ page.title }}</router-link>
+                            </div>
 
-                        <p class="custom-post-summary">
-                            {{ page.frontmatter.summary || page.summary }}
-                        </p>
+                            <p class="custom-post-summary">
+                                {{ page.frontmatter.summary || page.summary }}
+                            </p>
 
-                        <div v-if="page.frontmatter.date" class="custom-post-meta custom-post-date">
-                            <span>{{ resolvePostDate(page.frontmatter.date) }}</span>
-                        </div>
+                            <div v-if="page.frontmatter.date" class="custom-post-meta custom-post-date">
+                                <span>{{ resolvePostDate(page.frontmatter.date) }}</span>
+                            </div>
 
-                        <div v-if="page.frontmatter.tags" class="custom-post-meta custom-post-tag">
-                            <router-link
-                                    v-for="tag in resolvePostTags(page.frontmatter.tags)"
-                                    :key="tag"
-                                    :to="'/tag/' + tag"
-                            >
-                                # {{ tag }}
-                            </router-link>
+                            <div v-if="page.frontmatter.tags" class="custom-post-meta custom-post-tag">
+                                <router-link
+                                        v-for="tag in resolvePostTags(page.frontmatter.tags)"
+                                        :key="tag"
+                                        :to="'/tag/' + tag"
+                                >
+                                    # {{ tag }}
+                                </router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -36,7 +38,8 @@
                             <path d="M0-.5h24v24H0z" fill="none"/>
                         </svg>
                     </router-link>
-                    <svg v-else class="pagination-btn btn--prev btn--disabled" height="96" viewBox="0 0 24 24" width="96"
+                    <svg v-else class="pagination-btn btn--prev btn--disabled" height="96" viewBox="0 0 24 24"
+                         width="96"
                          xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"/>
                         <path d="M0-.5h24v24H0z" fill="none"/>
@@ -60,7 +63,8 @@
                             <path d="M0-.25h24v24H0z" fill="none"/>
                         </svg>
                     </router-link>
-                    <svg v-else class="pagination-btn btn--next btn--disabled" height="96" viewBox="0 0 24 24" width="96"
+                    <svg v-else class="pagination-btn btn--next btn--disabled" height="96" viewBox="0 0 24 24"
+                         width="96"
                          xmlns="http://www.w3.org/2000/svg">
                         <path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"/>
                         <path d="M0-.25h24v24H0z" fill="none"/>
@@ -130,7 +134,7 @@
 
     .custom-post-title
         font-family $defaultFont
-        font-size 28px
+        font-size 1.8rem
 
         a
             cursor pointer
