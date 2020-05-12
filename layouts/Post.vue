@@ -6,7 +6,7 @@
                     <div class="post-header">
                         <h1 class="post-title">{{ $frontmatter.title }}</h1>
                         <div class="post-meta">
-                            Posted on {{ resolvePostDate($frontmatter.date) }}
+                            Last modified @ {{ resolvePostDate($frontmatter.date) }}
                         </div>
                     </div>
                     <Content/>
@@ -54,7 +54,6 @@
         padding-bottom 2rem
 
     .post-header
-        padding-bottom $headerGap
 
         h1
             padding-bottom 0

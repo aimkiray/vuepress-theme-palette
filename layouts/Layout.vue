@@ -150,7 +150,7 @@
         font-size 1rem
         color $grayTextColor
         font-weight 400
-        margin-bottom .5rem
+        margin-bottom 0
 
     .custom-post-meta
         display inline-flex
@@ -168,7 +168,7 @@
             width 14px
             height 14px
 
-        @media (max-width: $mobleWidth)
+        @media (max-width: $mobileWidth)
             &:not(:last-child)
                 margin-bottom 10px
 

@@ -13,7 +13,7 @@
     footer
         position relative
         bottom 0
-        padding 2rem 0
+        padding 2rem 0 1rem 0
         font-size 14px
         font-weight 600
         overflow hidden

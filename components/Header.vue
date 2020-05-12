@@ -16,6 +16,7 @@
 
     .header-wrapper
         padding: 2rem 0;
+        height 5.5rem
 
         .title
             font-family: 'Press Start 2P', cursive;
@@ -25,7 +26,8 @@
             border-right: 12px solid $linkColor;
             animation: blink 1s infinite;
             font-size 2rem
-            @media screen and (max-width: $mobleWidth)
+            text-decoration underline
+            @media screen and (max-width: $mobileWidth)
                 font-size: 1.5rem;
                 border-right: 8px solid $linkColor;
 

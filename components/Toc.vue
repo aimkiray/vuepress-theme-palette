@@ -195,7 +195,7 @@ export default {
       padding-left 1rem * (i - 2)
 
 // for vuepress-toc
-@media (min-width: $mobleWidth)
+@media (min-width: $mobileWidth)
   .vuepress-toc
     display block
 </style>
