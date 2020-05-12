@@ -20,7 +20,10 @@ module.exports = themeConfig => {
         summary: themeConfig.summary === undefined ? true : themeConfig.summary,
         summaryLength:
             typeof themeConfig.summaryLength === 'number'
-                ? themeConfig.summaryLength : 90,
+                ? themeConfig.summaryLength : 86,
+        summaryLengthEN:
+            typeof themeConfig.summaryLengthEN === 'number'
+                ? themeConfig.summaryLengthEN : 172,
         pwa: !!themeConfig.pwa,
     });
 
@@ -65,9 +68,9 @@ module.exports = themeConfig => {
         } = themeConfig.feed;
         resolvedFeedOptions = Object.assign({}, feedOptions, {
             feeds: {
-                rss2: {enable: rss},
-                atom1: {enable: atom},
-                json1: {enable: json},
+                rss2: { enable: rss },
+                atom1: { enable: atom },
+                json1: { enable: json },
             },
         })
     }
@@ -115,6 +118,13 @@ module.exports = themeConfig => {
             }
         ],
         ['@vuepress/back-to-top'],
+        'vuepress-plugin-mathjax',
+        {
+            target: 'svg',
+            macros: {
+                '*': '\\times',
+            },
+        },
     ];
 
     /**
@@ -154,7 +164,7 @@ module.exports = themeConfig => {
                         strippedContent
                             .trim()
                             .replace(/^#+\s+(.*)/, '')
-                            .slice(0, themeConfig.summaryLength)
+                            .slice(0, pageCtx.frontmatter.lang === "en" ? themeConfig.summaryLengthEN : themeConfig.summaryLength)
                     ) + ' ...';
                 pageCtx.frontmatter.description = pageCtx.summary
             }
