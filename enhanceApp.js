@@ -1,4 +1,3 @@
-import "typeface-press-start-2p"
 // async function is also supported, too
 export default ({
   Vue, // the version of Vue being used in the VuePress app

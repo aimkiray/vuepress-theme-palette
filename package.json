@@ -18,8 +18,8 @@
     "autoprefixer": "^9.7.4",
     "remove-markdown": "^0.3.0",
     "tailwindcss": "^1.2.0",
-    "typeface-press-start-2p": "^0.0.72",
-    "vuepress": "next"
+    "vuepress": "next",
+    "vuepress-plugin-mathjax": "^1.2.8"
   },
   "files": [
     "index.js",
