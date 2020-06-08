@@ -2,7 +2,7 @@
 
 set -e
 
-cd /usr/share/nginx/html
+cd /var/www/meowwoo.com/html
 
 rm -rf * .[^.]*
 git clone --depth=1 https://github.com/aimkiray/note-deploy.git .

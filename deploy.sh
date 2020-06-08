@@ -5,7 +5,7 @@ set -e
 
 echo "deploy note..."
 # 生成静态文件
-npm run production
+yarn production
 
 # 进入生成的文件夹
 cd docs/.vuepress/dist
@@ -13,17 +13,17 @@ cd docs/.vuepress/dist
 git init
 git add -A
 git commit -m 'docs: deploy'
-git push -f git@github.com:aimkiray/note-deploy.git master
+git push -f https://github.com/aimkiray/note-deploy.git master
 
 cd -
 
-echo "update note..."
-cd docs/note
+# echo "update note..."
+# cd docs/note
 
-git add -A
-git commit -m 'docs: auto push'
-git push
+# git add *
+# git commit -m 'docs: auto push'
+# git push -f
 
-cd -
+# cd -
 
 echo "it works!"
