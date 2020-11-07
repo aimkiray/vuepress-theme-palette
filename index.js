@@ -18,12 +18,6 @@ module.exports = themeConfig => {
             },
         ],
         summary: themeConfig.summary === undefined ? true : themeConfig.summary,
-        summaryLength:
-            typeof themeConfig.summaryLength === 'number'
-                ? themeConfig.summaryLength : 86,
-        summaryLengthEN:
-            typeof themeConfig.summaryLengthEN === 'number'
-                ? themeConfig.summaryLengthEN : 172,
         pwa: !!themeConfig.pwa,
     });
 
@@ -159,13 +153,14 @@ module.exports = themeConfig => {
                 return
             }
             if (themeConfig.summary) {
+                let summarySplit = pageCtx.frontmatter.lang === "en" ? "." : "。";
                 pageCtx.summary =
                     removeMd(
                         strippedContent
                             .trim()
                             .replace(/^#+\s+(.*)/, '')
-                            .slice(0, pageCtx.frontmatter.lang === "en" ? themeConfig.summaryLengthEN : themeConfig.summaryLength)
-                    ) + ' ...';
+                            .split(summarySplit, 1)[0]
+                    ) + summarySplit;
                 pageCtx.frontmatter.description = pageCtx.summary
             }
             if (pageCtx.frontmatter.summary) {
