@@ -1,12 +1,12 @@
 <template>
-  <Sticker id="vuepressToc" v-if="visible" class="vuepress-toc" v-bind="$attrs">
+  <Sticker id="postToc" v-if="visible" class="post-toc" v-bind="$attrs">
     <div
       v-for="(item, index) in $page.headers"
       ref="chairTocItem"
       :key="index"
-      class="vuepress-toc-item"
+      class="post-toc-item"
       :class="[
-        `vuepress-toc-h${item.level}`,
+        `post-toc-h${item.level}`,
         { active: activeIndex === index },
       ]"
     >
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Sticker from './Sticker.vue'
+import Sticker from "./Sticker.vue";
 let initTop;
 
 // get offset top
@@ -25,7 +25,7 @@ function getAbsoluteTop(dom) {
     ? dom.getBoundingClientRect().top +
         document.body.scrollTop +
         document.documentElement.scrollTop
-    : 0
+    : 0;
 }
 
 export default {
@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       activeIndex: 0,
-    }
+    };
   },
 
   computed: {
@@ -45,7 +45,7 @@ export default {
         this.$frontmatter &&
         this.$frontmatter.toc !== false &&
         !!(this.$page && this.$page.headers && this.$page.headers.length)
-      )
+      );
     },
   },
 
@@ -58,9 +58,9 @@ export default {
       const wrapperRect = this.$el.getBoundingClientRect();
       const top = rect.top - wrapperRect.top;
       if (top < 20) {
-        this.$el.scrollTop = this.$el.scrollTop + top - 20
+        this.$el.scrollTop = this.$el.scrollTop + top - 20;
       } else if (top + rect.height > wrapperRect.height) {
-        this.$el.scrollTop += rect.top - (wrapperRect.height - rect.height)
+        this.$el.scrollTop += rect.top - (wrapperRect.height - rect.height);
       }
     },
 
@@ -70,10 +70,10 @@ export default {
   mounted() {
     // sync visible to parent component
     const syncVisible = () => {
-      this.$emit('visible-change', this.visible)
+      this.$emit("visible-change", this.visible);
     };
     syncVisible();
-    this.$watch('visible', syncVisible);
+    this.$watch("visible", syncVisible);
 
     // binding event
     setTimeout(() => this.triggerEvt(), 1000);
@@ -81,24 +81,26 @@ export default {
     this._onScroll = () => this.onScroll();
     this._onHashChange = () => {
       const hash = decodeURIComponent(location.hash.substring(1));
-      const index = (this.$page.headers || []).findIndex(h => h.slug === hash);
+      const index = (this.$page.headers || []).findIndex(
+        (h) => h.slug === hash
+      );
       if (index >= 0) this.activeIndex = index;
       const dom = hash && document.getElementById(hash);
-      if (dom) window.scrollTo(0, getAbsoluteTop(dom) - 20)
+      if (dom) window.scrollTo(0, getAbsoluteTop(dom) - 20);
     };
-    window.addEventListener('scroll', this._onScroll)
+    window.addEventListener("scroll", this._onScroll);
     // window.addEventListener('hashchange', this._onHashChange);
   },
 
   beforeDestroy() {
-    window.removeEventListener('scroll', this._onScroll);
-    window.removeEventListener('hashchange', this._onHashChange)
+    window.removeEventListener("scroll", this._onScroll);
+    window.removeEventListener("hashchange", this._onHashChange);
   },
 
   methods: {
     onScroll() {
       if (initTop === undefined) {
-        initTop = getAbsoluteTop(this.$el)
+        initTop = getAbsoluteTop(this.$el);
       }
 
       // update position
@@ -106,7 +108,7 @@ export default {
         document.body.scrollTop + document.documentElement.scrollTop;
       const headings = this.$page.headers || [];
 
-      const tocElement = document.getElementById("vuepressToc");
+      const tocElement = document.getElementById("postToc");
       if (scrollTop >= 200) {
         tocElement.classList.remove("hide-element");
         tocElement.classList.add("show-element");
@@ -119,83 +121,102 @@ export default {
 
       // change active toc with scrolling
       let i = 0;
-      const addLink = index => {
-        this.activeIndex = index
+      const addLink = (index) => {
+        this.activeIndex = index;
       };
 
       for (; i < headings.length; i++) {
         const dom = document.getElementById(headings[i].slug);
         const top = getAbsoluteTop(dom);
         if (top - 50 < scrollTop) {
-          addLink(i)
+          addLink(i);
         } else {
           if (!i) addLink(i);
-          break
+          break;
         }
       }
     },
 
     triggerEvt() {
       this._onScroll();
-      this._onHashChange()
+      this._onHashChange();
     },
   },
-}
+};
 </script>
 
 <style lang="stylus" scoped>
-.table-of-contents
-  display none !important
+.table-of-contents {
+  display: none !important;
+}
 
-.vuepress-toc
-  position fixed
-  display none
-  max-height 100vh
-  max-width 220px
-  overflow-y auto
-  padding-top 5rem
-  top 0
-  right 10px
-  box-sizing border-box
-  z-index 0
-  opacity 0
+.post-toc {
+  position: fixed;
+  display: none;
+  max-height: 100vh;
+  max-width: 220px;
+  overflow-y: auto;
+  margin-top: 5rem;
+  padding 1rem 0 1rem 0
+  top: 0;
+  right: 10px;
+  box-sizing: border-box;
+  z-index: 0;
+  opacity: 0;
+  border 2px solid #ffefef;
+  border-left none
+  background: linear-gradient(to left, #ffefef, #ffefef) left top no-repeat,
+              linear-gradient(to bottom, #ffefef, #ffefef) left bottom no-repeat;
+  background-size: 2px 1rem, 2px 1rem;
 
-  .vuepress-toc-item
-    position relative
-    padding 0.1rem 0.6rem 0.1rem 1rem
-    line-height 1.5rem
-    border-left 2px solid rgba(0, 0, 0, 0.08)
-    overflow hidden
+  .post-toc-item {
+    position: relative;
+    padding: 0.1rem 0.6rem 0.1rem 1rem;
+    line-height: 1.5rem;
+    border-left: 2px solid #ffefef;
+    overflow: hidden;
 
-    a
-      display block
-      color $textColor
-      width 100%
-      box-sizing border-box
-      font-size 12px
-      font-weight 400
-      text-decoration none
-      transition color 0.3s
-      overflow hidden
-      text-overflow ellipsis
-      white-space nowrap
+    a {
+      display: block;
+      color: $text-color;
+      width: 100%;
+      box-sizing: border-box;
+      font-family: $fonts-sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      text-decoration: none;
+      transition: color 0.3s;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
-    &.active
-      border-left-color $linkColor
+    &.active {
+      border-left-color: $link-color;
 
-      a
-        color $linkColor
+      a {
+        color: $link-color;
+      }
+    }
 
-    &:hover
-      a
-        color $linkColor
+    &:hover {
+      a {
+        color: $link-color;
+      }
+    }
+  }
 
-  for i in range(3, 6)
-    .vuepress-toc-h{i} a
-      padding-left 1rem * (i - 2)
+  for i in range(3, 6) {
+    .post-toc-h{i} a {
+      padding-left: 1rem * (i - 2);
+    }
+  }
+}
 
-// for vuepress-toc
-@media (min-width: $mobileWidth)
-  .vuepress-toc
-    display block
+// for post-toc
+@media (min-width: $mobile-width) {
+  .post-toc {
+    display: block;
+  }
+}
 </style>

@@ -8,7 +8,7 @@
 <style lang="stylus" scoped>
     .notfound-wrapper
         img
-            background-color $codeBgColor
+            background-color $code-bg-color
             max-width: 100%;
             max-height: 25rem;
             display: block;
