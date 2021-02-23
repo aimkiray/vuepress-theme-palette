@@ -37,12 +37,15 @@
 						</router-link>
 					</div>
 
-                    <p class="post-summary">
+					<p class="post-summary">
 						{{ page.frontmatter.summary || page.summary }}
 					</p>
 
-                    <router-link :to="page.path" class="button button--atlas">
-						<span>Explosion</span>
+					<router-link
+						:to="page.path"
+						class="read-button button--atlas"
+					>
+						<span>Read more</span>
 						<div class="marquee" aria-hidden="true">
 							<div class="marquee__inner">
 								<span>Explosion</span>
@@ -86,16 +89,6 @@
 					/>
 					<path d="M0-.5h24v24H0z" fill="none" />
 				</svg>
-
-				<div class="pagination-container">
-					<div class="little-dot little-dot--first"></div>
-					<div class="little-dot">
-						<div class="big-dot-container">
-							<div class="big-dot"></div>
-						</div>
-					</div>
-					<div class="little-dot little-dot--last"></div>
-				</div>
 
 				<router-link
 					v-if="$pagination.hasNext"
@@ -148,36 +141,7 @@ export default {
 			return [tags];
 		},
 	},
-	mounted() {
-		var btns = document.querySelectorAll(".pagination-btn");
-		var paginationWrapper = document.querySelector(".pagination-wrapper");
-		var bigDotContainer = document.querySelector(".big-dot-container");
-		var littleDot = document.querySelector(".little-dot");
-
-		for (var i = 0; i < btns.length; i++) {
-			btns[i].addEventListener("click", btnClick);
-		}
-
-		function btnClick() {
-			if (this.classList.contains("btn--prev")) {
-				paginationWrapper.classList.add("transition-prev");
-			} else {
-				paginationWrapper.classList.add("transition-next");
-			}
-
-			var timeout = setTimeout(cleanClasses, 500);
-		}
-
-		function cleanClasses() {
-			if (paginationWrapper.classList.contains("transition-next")) {
-				paginationWrapper.classList.remove("transition-next");
-			} else if (
-				paginationWrapper.classList.contains("transition-prev")
-			) {
-				paginationWrapper.classList.remove("transition-prev");
-			}
-		}
-	},
+	mounted() {},
 };
 </script>
 
@@ -201,9 +165,9 @@ export default {
 		font-size: $title-font-size;
 		font-weight: 600;
 		cursor: pointer;
-        background-color: $accent-color
-        padding: 0 1rem 0 0.5rem;
-        display: inline-block;
+		background-color: $accent-color;
+		padding: 0 1rem 0 0.5rem;
+		display: inline-block;
 		color: white;
 		transition: all 0.2s;
 		text-decoration: none;
@@ -218,9 +182,6 @@ export default {
 	font-family: $fonts-sans-serif;
 	font-size: 1rem;
 	font-weight: 400;
-    // border-top: 0.2rem dashed red;
-    // padding: 0.5rem;
-    // background: rgba(0, 0, 0, 0.2);
 }
 
 .post-meta {
@@ -270,7 +231,7 @@ export default {
 	}
 }
 
-.button {
+.read-button {
 	pointer-events: auto;
 	cursor: pointer;
 	background: #e7e7e7;
@@ -281,15 +242,6 @@ export default {
 	font-size: inherit;
 	position: relative;
 	display: inline-block;
-}
-
-.button::before,
-.button::after {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
 }
 
 .button--atlas {
@@ -352,177 +304,11 @@ export default {
 
 .pagination-wrapper {
 	font-size: 0;
-	position: absolute;
-	text-align: center;
-	margin-left: 5.2rem;
-}
-
-@keyframes pagination-container--animation-prev {
-	0% {
-		transform: translateX(0);
-	}
-
-	100% {
-		transform: translateX(18px);
-	}
-}
-
-@keyframes pagination-container--animation-next {
-	0% {
-		transform: translateX(0);
-	}
-
-	100% {
-		transform: translateX(-18px);
-	}
-}
-
-.transition-prev .pagination-container {
-	animation: pagination-container--animation-prev 0.3s forwards;
-}
-
-.transition-next .pagination-container {
-	animation: pagination-container--animation-next 0.3s forwards;
-}
-
-.little-dot {
-	width: 6px;
-	height: 6px;
-	background: #FEB2B2;
-	border-radius: 100%;
-	display: inline-block;
-	vertical-align: middle;
-	margin: 0 6px;
-	position: relative;
-	z-index: 10;
-}
-
-.little-dot--first, .little-dot--last {
-	z-index: 5;
-}
-
-@keyframes slideLeft {
-	0% {
-		transform: translateX(0px);
-	}
-
-	100% {
-		transform: translateX(-18px);
-	}
-}
-
-.transition-prev .little-dot--first {
-	animation: slideLeft 0.4s 0.3s forwards cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-@keyframes little-dot--first--animation {
-	0% {
-		opacity: 1;
-	}
-
-	100% {
-		opacity: 0;
-	}
-}
-
-.transition-next .little-dot--first {
-	animation: little-dot--last--animation 0.3s forwards;
-}
-
-@keyframes little-dot--last--animation {
-	0% {
-		opacity: 1;
-	}
-
-	100% {
-		opacity: 0;
-	}
-}
-
-.transition-prev .little-dot--last {
-	animation: little-dot--last--animation 0.3s forwards;
-}
-
-@keyframes slideRight {
-	0% {
-		transform: translateX(0px);
-		opacity: 1;
-	}
-
-	100% {
-		transform: translateX(18px);
-		opacity: 1;
-	}
-}
-
-.transition-next .little-dot--last {
-	animation: slideRight 0.4s 0.3s forwards cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.big-dot {
-	width: 12px;
-	height: 12px;
-	border-radius: 100%;
-	background: $link-color;
-	position: absolute;
-	top: 50%;
-	right: -6px;
-	transform: translateY(-50%);
-}
-
-.transition-next .big-dot {
-	right: auto;
-	left: -6px;
-}
-
-.big-dot-container {
-	width: 18px;
-	height: 18px;
-	border-radius: 100%;
-	position: absolute;
-	top: 50%;
-	right: 3px;
-	transform: translateY(-50%);
-	z-index: 10;
-}
-
-.transition-next .big-dot-container {
-	right: auto;
-	left: 3px;
-}
-
-@keyframes big-dot-container--animation-prev {
-	0% {
-		transform: translateY(-50%);
-	}
-
-	100% {
-		transform: translateY(-50%) rotate(-179deg);
-	}
-}
-
-@keyframes big-dot-container--animation-next {
-	0% {
-		transform: translateY(-50%);
-	}
-
-	100% {
-		transform: translateY(-50%) rotate(-181deg);
-	}
-}
-
-.transition-prev .big-dot-container {
-	animation: big-dot-container--animation-prev 0.3s forwards;
-}
-
-.transition-next .big-dot-container {
-	animation: big-dot-container--animation-next 0.3s forwards;
+	display: flex;
+	justify-content: center;
 }
 
 .pagination-btn {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
 	fill: $link-color;
 	cursor: pointer;
 	transition: opacity 0.2s;
@@ -533,10 +319,12 @@ export default {
 }
 
 .btn--next {
+	transform: rotate(90deg);
 	left: calc(100% + 20px);
 }
 
 .btn--prev {
+    transform: rotate(90deg);
 	right: calc(100% + 20px);
 }
 
