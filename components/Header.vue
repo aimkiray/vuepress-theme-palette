@@ -92,7 +92,22 @@ export default {
 		}
 
         @media screen and (max-width: $mobile-width) {
-			display: block;
+			display: table;
+            max-width: 100%;
+            width: 100%;
+            table-layout: fixed;
+            
+            .nav-item {
+                display: table-cell;
+            }
+
+            :nth-child(2) {
+                text-align: center;
+            }
+
+            :last-child {
+                text-align: right;
+            }
 		}
 	}
 }
