@@ -153,6 +153,7 @@ module.exports = themeConfig => {
                 return
             }
             if (themeConfig.summary) {
+                // Default summary is the first paragraph
                 let summarySplit = pageCtx.frontmatter.lang === "en" ? "." : "。";
                 pageCtx.summary =
                     removeMd(

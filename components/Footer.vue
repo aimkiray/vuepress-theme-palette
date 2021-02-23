@@ -15,9 +15,7 @@
 				<a
 					href="https://github.com/aimkiray/vuepress-theme-palette"
 					target="_blank"
-					>aimkiray</a
-				>.
-				<span></span>
+					>aimkiray</a>.
 			</p>
 		</div>
 	</div>
@@ -26,7 +24,6 @@
 <style lang="stylus" scoped>
 .copyright {
 	font-size: 1rem;
-	// background: linear-gradient(to top, $bg-color, #fff);
 	color: #fc8181;
 	text-align: center;
 	height: 5rem;
