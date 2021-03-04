@@ -19,7 +19,8 @@
     "remove-markdown": "^0.3.0",
     "tailwindcss": "^1.2.0",
     "vuepress": "next",
-    "vuepress-plugin-mathjax": "^1.2.8"
+    "vuepress-plugin-mathjax": "^1.2.8",
+    "axios": "^0.21.1"
   },
   "files": [
     "index.js",
