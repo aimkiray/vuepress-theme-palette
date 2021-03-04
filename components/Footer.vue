@@ -1,13 +1,9 @@
 <template>
 	<div>
-		<!-- <div class="cat-ear">
-            <span class="a-ear">▲</span>
-            <span class="a-ear">▲</span>
-        </div> -->
 		<div class="copyright">
 			<p>
-				© 2014 - 2200
-				<a href="https://meowwoo.com">aimkiray</a>.
+				© 2014-2200
+				<router-link to="/">{{ $site.title }}</router-link>.
 			</p>
             <p>
 				Built with ♥ and VuePress. 
@@ -27,7 +23,7 @@
 	color: #fc8181;
 	text-align: center;
 	height: 5rem;
-	padding: 5rem 0 0 0.5rem;
+	padding: 2rem 0 0 0.5rem;
     display block;
 
 	p {
