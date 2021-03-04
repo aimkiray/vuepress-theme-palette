@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="nyaa-wrapper">
-			<span class="nyaa-left"></span><span class="nyaa-right"></span>
+			<span class="nyaa"></span><span class="nyaa nyaa-right"></span>
 		</div>
 	</div>
 </template>
@@ -98,26 +98,21 @@ export default {
 	text-align: center;
     padding-top: 2rem;
 
-	.nyaa-left {
+	.nyaa {
 		position: relative;
-		left: 0.2rem;
+		left: 0.4rem;
 		display: inline-block;
 		width: 3rem;
 		height: 1.5rem;
 		border: 0.4rem solid $border-color;
-		border-radius: 0 0 100% 100% / 0 0 200% 160%;
+		border-radius: 0 0 100% 100% / 0 0 180% 160%;
 		border-top: none;
 	}
 
 	.nyaa-right {
-		position: relative;
-		right: 0.2rem;
-		display: inline-block;
-		width: 3rem;
-		height: 1.5rem;
-		border: 0.4rem solid $border-color;
-		border-radius: 0 0 100% 100% / 0 0 160% 200%;
-		border-top: none;
+        left: 0;
+		right: 0.4rem;
+		border-radius: 0 0 100% 100% / 0 0 160% 180%;
 	}
 }
 </style>
