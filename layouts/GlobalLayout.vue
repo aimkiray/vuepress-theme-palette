@@ -26,23 +26,29 @@ export default {
 	},
 	data() {
 		return {
-            screenWidth: document.body.clientWidth,
-            radiusSize: 30,
+			screenWidth: document.body.clientWidth,
+			radiusSize: 30,
 			borderRadius: {
-                borderTopLeftRadius: "49% 32px",
+				borderTopLeftRadius: "49% 32px",
 				borderTopRightRadius: "49% 32px",
-            },
+			},
 		};
 	},
 	mounted() {
-        const radiusInfo = "49% " + parseInt(((document.body.clientWidth - 485) * 215 + 15520) / document.body.clientWidth) + "px"
-        this.borderRadius.borderTopLeftRadius = radiusInfo
-        this.borderRadius.borderTopRightRadius = radiusInfo
+		const radiusInfo =
+			"49% " +
+			parseInt(
+				((document.body.clientWidth - 485) * 215 + 15520) /
+					document.body.clientWidth
+			) +
+			"px";
+		this.borderRadius.borderTopLeftRadius = radiusInfo;
+		this.borderRadius.borderTopRightRadius = radiusInfo;
 		const that = this;
 		window.onresize = () => {
 			return (() => {
 				window.screenWidth = document.body.clientWidth;
-                that.screenWidth = window.screenWidth;
+				that.screenWidth = window.screenWidth;
 			})();
 		};
 	},
@@ -50,12 +56,18 @@ export default {
 		screenWidth(val) {
 			if (!this.timer) {
 				this.screenWidth = val;
-                this.timer = true;
+				this.timer = true;
 				let that = this;
 				setTimeout(function () {
-                    const radiusInfo = "49% " + parseInt(((document.body.clientWidth - 485) * 215 + 15520) / document.body.clientWidth) + "px"
-                    that.borderRadius.borderTopLeftRadius = radiusInfo
-                    that.borderRadius.borderTopRightRadius = radiusInfo
+					const radiusInfo =
+						"49% " +
+						parseInt(
+							((document.body.clientWidth - 485) * 215 + 15520) /
+								document.body.clientWidth
+						) +
+						"px";
+					that.borderRadius.borderTopLeftRadius = radiusInfo;
+					that.borderRadius.borderTopRightRadius = radiusInfo;
 					that.timer = false;
 				}, 500);
 			}
@@ -65,7 +77,20 @@ export default {
 </script>
 
 <style lang="stylus">
+
+/* Hide naive scrollbar */
+body {
+	/* Chrome, Safari and Opera */
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
+
 .global-layout {
+	position: relative;
 	display: flex;
 	height: 100vh;
 	flex-direction: column;
@@ -77,31 +102,27 @@ export default {
 
 .main-wrapper {
 	flex: 1 0 auto;
-	padding-top: 8rem;
+	padding-top: 6rem;
 	background: no-repeat linear-gradient($bg-color, #fff);
-	background-size: 100% 20rem;
-    box-shadow: rgba(0, 0, 0, 0.01) 0 -0.1rem 0.1rem,
-                rgba(0, 0, 0, 0.04) 0 -0.25rem 0.25rem,
-                rgba(0, 0, 0, 0.04) 0 -1rem 1rem,
-                rgba(0, 0, 0, 0.01) 0 -1.5rem 1.5rem;
+	background-size: 100% 40rem;
+	box-shadow: rgba(0, 0, 0, 0.01) 0 -0.1rem 0.1rem, rgba(0, 0, 0, 0.04) 0 -0.25rem 0.25rem, rgba(0, 0, 0, 0.04) 0 -1rem 1rem, rgba(0, 0, 0, 0.01) 0 -1.5rem 1.5rem;
 }
 
 .cat-ear {
-	font-family: arial;
+	font-family: monospace;
 	text-transform: uppercase;
 	text-align: center;
-	letter-spacing: 3rem;
+	letter-spacing: 5rem;
 	position: relative;
-	bottom: 2.5rem;
+	bottom: 3.5rem;
 	height: 0;
-    text-shadow: rgba(0, 0, 0, 0.01) 0 -0.1rem 0.1rem,
-                rgba(0, 0, 0, 0.04) 0 -0.5rem 0.5rem;
+	text-shadow: rgba(0, 0, 0, 0.01) 0 -0.1rem 0.1rem, rgba(0, 0, 0, 0.04) 0 -0.5rem 0.5rem;
 }
 
 .a-ear {
 	letter-spacing: 0;
 	color: $bg-color;
-	font-size: 10rem;
+	font-size: 12rem;
 	line-height: 0;
 	z-index: 1;
 }
