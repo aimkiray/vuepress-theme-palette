@@ -15,7 +15,7 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
 });
 
 module.exports = {
-    title: 'Akari', // Title for the site. This will be displayed in the navbar.
+    title: 'aimkiray', // Title for the site. This will be displayed in the navbar.
     postcss: {
         plugins: [
             require("tailwindcss")("./tailwind.config.js"),
@@ -30,12 +30,12 @@ module.exports = {
     themeConfig: {
         nav: [
             {
-                text: 'Tags',
+                text: 'Tag',
                 link: '/tag/',
             },
             {
                 text: 'About',
-                link: '/tag/',
+                link: '/404/',
             },
             {
                 text: 'Github',
