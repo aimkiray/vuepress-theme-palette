@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="px-2 py-0 md:px-20 md:py-10 bg-white post-wrapper">
+		<div class="post-wrapper">
 			<div class="post-header">
 				<h1 class="post-title">{{ $frontmatter.title }}</h1>
 				<div class="post-meta">
@@ -26,7 +26,7 @@
 
 <script>
 import { Comment } from "@vuepress/plugin-blog/lib/client/components";
-import Toc from "@theme/components/Toc.vue";
+import Toc from "@theme/global-components/Toc.vue";
 import dayjs from "dayjs";
 
 export default {
@@ -46,6 +46,11 @@ export default {
 			return [tags];
 		},
 	},
+	mounted() {
+		this.$nextTick(function () {
+			this.$emit("dom-updated");
+		});
+	},
 };
 </script>
 
@@ -54,7 +59,11 @@ export default {
 .post-wrapper {
 	max-width: 50rem;
 	margin: 0 auto;
-	// border: 2px solid;
+	padding: 0 0.5rem;
+
+	@media (min-width: 768px) {
+		padding: 2.5rem 5rem;
+	}
 }
 
 .post-header {

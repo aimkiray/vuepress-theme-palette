@@ -2,6 +2,7 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
 
     // Specify the paths to all of the template files in your project
     content: [
+        "./global-components/*.*",
         "./components/*.*",
         "./layouts/*.*",
         "./styles/*.*",
@@ -15,10 +16,9 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
 });
 
 module.exports = {
-    title: 'aimkiray', // Title for the site. This will be displayed in the navbar.
+    title: 'Buster', // Title for the site. This will be displayed in the navbar.
     postcss: {
         plugins: [
-            require("tailwindcss")("./tailwind.config.js"),
             require("autoprefixer"),
             ...(process.env.NODE_ENV === "production" ? [purgecss] : []),
         ]
@@ -47,4 +47,7 @@ module.exports = {
         },
         smoothScroll: true,
     },
+    configureWebpack: {
+        devtool: 'source-map'
+    }
 };

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import headerFont from "../fonts/PacfontGood.woff2";
+import headerFont from "../fonts/Pacfont.woff2";
 import axios from "axios";
 
 export default {
@@ -34,50 +34,56 @@ export default {
 				is: "router-link",
 				to: url,
 			};
-		}
+		},
 	},
 	mounted() {
-		axios({
-			url: headerFont,
-            method: "GET",
-            responseType: "text",
-		}).then((response) => {
-			var fontCode = "@font-face { font-family: 'PacfontGood'; src: url('" + response.config.url + "') format('woff2')}";
-			var styleElement = document.createElement("style");
-			if (styleElement.styleSheet) {
-				styleElement.styleSheet.cssText = fontCode;
-			} else {
-				styleElement.innerHTML = fontCode;
-			}
-            document.head.appendChild(styleElement);
-            this.$refs.header.style.fontFamily = "PacfontGood";
-            this.$refs.header.style.visibility = "visible";
-		});
+		axios
+			.get(headerFont, { responseType: "arraybuffer" })
+			.then((response) => {
+				var base64String = btoa(
+					new Uint8Array(response.data).reduce(
+						(data, byte) => data + String.fromCharCode(byte),
+						""
+					)
+				);
+				var fontCode =
+					"@font-face { font-family: 'PacfontGood'; src: url('data:application/font-woff2;charset=utf-8;base64," +
+					base64String +
+					"') format('woff2')}";
+				var styleElement = document.createElement("style");
+				if (styleElement.styleSheet) {
+					styleElement.styleSheet.cssText = fontCode;
+				} else {
+					styleElement.innerHTML = fontCode;
+				}
+				document.head.appendChild(styleElement);
+				this.$refs.header.style.fontFamily = "PacfontGood";
+				this.$refs.header.style.visibility = "visible";
+			});
 	},
 };
 </script>
 
 <style lang="stylus">
 .header-wrapper {
-    visibility: hidden;
+	visibility: hidden;
 	padding: 1rem 1rem;
 	height: 5rem;
 	background-color: white;
 
 	.title-wrapper {
 		width: 20rem;
-		margin-right: calc(100% - 38rem);
+		margin-right: calc(100% - 42rem);
 		display: inline-block;
 
 		.title {
-			padding: 0 0.5rem 0 0.5rem;
-			border-right: 0.75rem solid $link-color;
+			padding: 0 0.3rem 0 0.5rem;
+			border-right: 0.65rem solid $link-color;
 			animation: blink 1s infinite;
-			font-size: 3rem;
-			text-decoration: underline;
+			font-size: 2.5rem;
 
 			@media screen and (max-width: $mobile-width) {
-				font-size: 2.5rem;
+				font-size: 2rem;
 				border-right: 0.5rem solid $link-color;
 			}
 		}
@@ -102,7 +108,7 @@ export default {
 	}
 
 	.nav-wrap {
-		max-width: 20rem;
+		max-width: 25rem;
 		display: inline-block;
 
 		.nav-item {

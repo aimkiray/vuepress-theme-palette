@@ -1,16 +1,6 @@
 <template>
 	<div>
-		<div class="loading" ref="loading">
-			<div class="la-pacman la-2x">
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-		</div>
-
+        <div class="quotation-loading" ref="quotationLoading"></div>
 		<div class="quotation-wrapper" ref="quotation">
 			<div class="row-quotation">
 				<div class="quotation">“</div>
@@ -28,13 +18,13 @@
 			</div>
 		</div>
 
-		<div class="nyaa-wrapper" v-on:click="getSentence">
-			<span class="nyaa"></span><span class="nyaa nyaa-right"></span>
+		<div class="nyaa-wrapper">
+			<span class="nyaa" v-on:click="getSentence"></span><span class="nyaa nyaa-right" v-on:click="getSentence"></span>
 		</div>
-		<div class="page-wrapper px-10 md:px-20">
+		<div class="page-wrapper">
 			<div class="post-list">
 				<div
-					class="post-block px-5 md:px-10"
+					class="post-block"
 					v-for="page in $pagination.pages"
 					:key="page.key"
 				>
@@ -177,7 +167,7 @@ export default {
 			axios
 				.get("https://v1.hitokoto.cn/?c=a&c=i&min_length=6")
 				.then((resp) => {
-					// Success 🎉
+					// 🎉
 					if (resp.status == 200) {
 						this.sentence = resp.data;
 					} else {
@@ -188,7 +178,7 @@ export default {
 					}
 				})
 				.catch((e) => {
-					// Error 😨
+					// 😨
 					this.sentence = {
 						hitokoto: "404040404040404040404",
 						from: "404",
@@ -213,40 +203,46 @@ export default {
 		};
 	},
 	mounted() {
-		axios({
-			url: dotGothic16Font,
-			method: "GET",
-			responseType: "text",
-		}).then((response) => {
-			var fontCode =
-				"@font-face { font-family: 'DotGothic16'; src: url('" +
-				response.config.url +
-				"') format('woff2')}";
-			var styleElement = document.createElement("style");
-			if (styleElement.styleSheet) {
-				styleElement.styleSheet.cssText = fontCode;
-			} else {
-				styleElement.innerHTML = fontCode;
-			}
-			document.head.appendChild(styleElement);
-			this.$refs.loading.style.display = "none";
-			this.$refs.quotation.style.fontFamily = "DotGothic16";
-			this.$refs.quotation.style.display = "table";
+        this.$nextTick(function () {
+			this.$emit('dom-updated')
 		});
+		axios
+			.get(dotGothic16Font, { responseType: "arraybuffer" })
+			.then((response) => {
+				var base64String = btoa(
+					new Uint8Array(response.data).reduce(
+						(data, byte) => data + String.fromCharCode(byte),
+						""
+					)
+                );
+				var fontCode =
+					"@font-face { font-family: 'DotGothic16'; src: url('data:application/font-woff2;charset=utf-8;base64," +
+					base64String +
+					"') format('woff2')}";
+				var styleElement = document.createElement("style");
+				if (styleElement.styleSheet) {
+					styleElement.styleSheet.cssText = fontCode;
+				} else {
+					styleElement.innerHTML = fontCode;
+				}
+				document.head.appendChild(styleElement);
+                this.$refs.quotationLoading.style.display = "none";
+				this.$refs.quotation.style.fontFamily = "DotGothic16";
+				this.$refs.quotation.style.display = "table";
+			});
 		this.getSentence();
 	},
 };
 </script>
 
 <style lang="stylus" scoped>
-.loading {
-	margin: auto;
-	height: 5rem;
+.quotation-loading {
+    height: 5rem;
 }
 
 .quotation-wrapper {
-	display: none;
 	margin: auto;
+    display: none;
 	height: 5rem;
 
 	.row-quotation {
@@ -293,36 +289,27 @@ export default {
 	}
 }
 
-.nyaa-wrapper {
-	text-align: center;
-	padding: 2rem 0;
-
-	.nyaa {
-		position: relative;
-		left: 0.4rem;
-		display: inline-block;
-		width: 3rem;
-		height: 1.5rem;
-		border: 0.4rem solid $border-color;
-		border-top: none;
-		cursor: pointer;
-		border-radius: 0 0 100% 100% / 0 0 180% 160%;
-
-		&.nyaa-right {
-			left: 0;
-			right: 0.4rem;
-			border-radius: 0 0 100% 100% / 0 0 160% 180%;
-		}
-	}
-}
-
 .page-wrapper {
 	max-width: 50rem;
 	margin: 0 auto;
+	padding-left: 2.5rem;
+	padding-right: 2.5rem;
+
+	@media (min-width: 768px) {
+		padding-left: 5rem;
+		padding-right: 5rem;
+	}
 }
 
 .post-block {
 	margin-bottom: 2rem;
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+
+	@media (min-width: 768px) {
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+	}
 }
 
 .post-title {
@@ -493,340 +480,5 @@ export default {
 .btn--disabled {
 	fill: $arrow-bg-color;
 	cursor: not-allowed;
-}
-
-/*
- * Load Awesome v1.1.0 (http://github.danielcardoso.net/load-awesome/)
- * Copyright 2015 Daniel Cardoso <@DanielCardoso>
- * Licensed under MIT
- */
-.la-pacman, .la-pacman > div {
-	position: relative;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-.la-pacman {
-	display: block;
-	font-size: 0;
-	color: #fff;
-}
-
-.la-pacman.la-dark {
-	color: #333;
-}
-
-.la-pacman > div {
-	display: inline-block;
-	float: none;
-	background-color: currentColor;
-	border: 0 solid currentColor;
-}
-
-.la-pacman {
-	width: 32px;
-	height: 32px;
-}
-
-.la-pacman > div:nth-child(1), .la-pacman > div:nth-child(2) {
-	width: 0;
-	height: 0;
-	background: transparent;
-	border-style: solid;
-	border-width: 16px;
-	border-right-color: transparent;
-	border-radius: 100%;
-	-webkit-animation: pacman-rotate-half-up 0.5s 0s infinite;
-	-moz-animation: pacman-rotate-half-up 0.5s 0s infinite;
-	-o-animation: pacman-rotate-half-up 0.5s 0s infinite;
-	animation: pacman-rotate-half-up 0.5s 0s infinite;
-}
-
-.la-pacman > div:nth-child(2) {
-	margin-top: -32px;
-	-webkit-animation-name: pacman-rotate-half-down;
-	-moz-animation-name: pacman-rotate-half-down;
-	-o-animation-name: pacman-rotate-half-down;
-	animation-name: pacman-rotate-half-down;
-}
-
-.la-pacman > div:nth-child(3), .la-pacman > div:nth-child(4), .la-pacman > div:nth-child(5), .la-pacman > div:nth-child(6) {
-	position: absolute;
-	top: 50%;
-	left: 200%;
-	width: 8px;
-	height: 8px;
-	border-radius: 100%;
-	opacity: 0;
-	-webkit-animation: pacman-balls 2s 0s infinite linear;
-	-moz-animation: pacman-balls 2s 0s infinite linear;
-	-o-animation: pacman-balls 2s 0s infinite linear;
-	animation: pacman-balls 2s 0s infinite linear;
-}
-
-.la-pacman > div:nth-child(3) {
-	-webkit-animation-delay: -1.44s;
-	-moz-animation-delay: -1.44s;
-	-o-animation-delay: -1.44s;
-	animation-delay: -1.44s;
-}
-
-.la-pacman > div:nth-child(4) {
-	-webkit-animation-delay: -1.94s;
-	-moz-animation-delay: -1.94s;
-	-o-animation-delay: -1.94s;
-	animation-delay: -1.94s;
-}
-
-.la-pacman > div:nth-child(5) {
-	-webkit-animation-delay: -2.44s;
-	-moz-animation-delay: -2.44s;
-	-o-animation-delay: -2.44s;
-	animation-delay: -2.44s;
-}
-
-.la-pacman > div:nth-child(6) {
-	-webkit-animation-delay: -2.94s;
-	-moz-animation-delay: -2.94s;
-	-o-animation-delay: -2.94s;
-	animation-delay: -2.94s;
-}
-
-.la-pacman.la-2x {
-	width: 4rem;
-	height: 4rem;
-}
-
-.la-pacman.la-2x > div:nth-child(1), .la-pacman.la-2x > div:nth-child(2) {
-	border-width: 2rem;
-}
-
-.la-pacman.la-2x > div:nth-child(2) {
-	margin-top: -4rem;
-}
-
-.la-pacman.la-2x > div:nth-child(3), .la-pacman.la-2x > div:nth-child(4), .la-pacman.la-2x > div:nth-child(5), .la-pacman.la-2x > div:nth-child(6) {
-	width: 1rem;
-	height: 1rem;
-}
-
-/*
- * Animations
- */
-@keyframes pacman-rotate-half-up {
-	0%, 100% {
-		-webkit-transform: rotate(270deg);
-		transform: rotate(270deg);
-	}
-
-	50% {
-		-webkit-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
-}
-
-@keyframes pacman-rotate-half-up {
-	0%, 100% {
-		-moz-transform: rotate(270deg);
-		transform: rotate(270deg);
-	}
-
-	50% {
-		-moz-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
-}
-
-@keyframes pacman-rotate-half-up {
-	0%, 100% {
-		-o-transform: rotate(270deg);
-		transform: rotate(270deg);
-	}
-
-	50% {
-		-o-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
-}
-
-@keyframes pacman-rotate-half-up {
-	0%, 100% {
-		-webkit-transform: rotate(270deg);
-		-moz-transform: rotate(270deg);
-		-o-transform: rotate(270deg);
-		transform: rotate(270deg);
-	}
-
-	50% {
-		-webkit-transform: rotate(360deg);
-		-moz-transform: rotate(360deg);
-		-o-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
-}
-
-@keyframes pacman-rotate-half-down {
-	0%, 100% {
-		-webkit-transform: rotate(90deg);
-		transform: rotate(90deg);
-	}
-
-	50% {
-		-webkit-transform: rotate(0deg);
-		transform: rotate(0deg);
-	}
-}
-
-@keyframes pacman-rotate-half-down {
-	0%, 100% {
-		-moz-transform: rotate(90deg);
-		transform: rotate(90deg);
-	}
-
-	50% {
-		-moz-transform: rotate(0deg);
-		transform: rotate(0deg);
-	}
-}
-
-@keyframes pacman-rotate-half-down {
-	0%, 100% {
-		-o-transform: rotate(90deg);
-		transform: rotate(90deg);
-	}
-
-	50% {
-		-o-transform: rotate(0deg);
-		transform: rotate(0deg);
-	}
-}
-
-@keyframes pacman-rotate-half-down {
-	0%, 100% {
-		-webkit-transform: rotate(90deg);
-		-moz-transform: rotate(90deg);
-		-o-transform: rotate(90deg);
-		transform: rotate(90deg);
-	}
-
-	50% {
-		-webkit-transform: rotate(0deg);
-		-moz-transform: rotate(0deg);
-		-o-transform: rotate(0deg);
-		transform: rotate(0deg);
-	}
-}
-
-@keyframes pacman-balls {
-	0% {
-		left: 200%;
-		opacity: 0;
-		-webkit-transform: translateY(-50%);
-		transform: translateY(-50%);
-	}
-
-	5% {
-		opacity: 0.5;
-	}
-
-	66% {
-		opacity: 1;
-	}
-
-	67% {
-		opacity: 0;
-	}
-
-	100% {
-		left: 0;
-		-webkit-transform: translateY(-50%);
-		transform: translateY(-50%);
-	}
-}
-
-@keyframes pacman-balls {
-	0% {
-		left: 200%;
-		opacity: 0;
-		-moz-transform: translateY(-50%);
-		transform: translateY(-50%);
-	}
-
-	5% {
-		opacity: 0.5;
-	}
-
-	66% {
-		opacity: 1;
-	}
-
-	67% {
-		opacity: 0;
-	}
-
-	100% {
-		left: 0;
-		-moz-transform: translateY(-50%);
-		transform: translateY(-50%);
-	}
-}
-
-@keyframes pacman-balls {
-	0% {
-		left: 200%;
-		opacity: 0;
-		-o-transform: translateY(-50%);
-		transform: translateY(-50%);
-	}
-
-	5% {
-		opacity: 0.5;
-	}
-
-	66% {
-		opacity: 1;
-	}
-
-	67% {
-		opacity: 0;
-	}
-
-	100% {
-		left: 0;
-		-o-transform: translateY(-50%);
-		transform: translateY(-50%);
-	}
-}
-
-@keyframes pacman-balls {
-	0% {
-		left: 200%;
-		opacity: 0;
-		-webkit-transform: translateY(-50%);
-		-moz-transform: translateY(-50%);
-		-o-transform: translateY(-50%);
-		transform: translateY(-50%);
-	}
-
-	5% {
-		opacity: 0.5;
-	}
-
-	66% {
-		opacity: 1;
-	}
-
-	67% {
-		opacity: 0;
-	}
-
-	100% {
-		left: 0;
-		-webkit-transform: translateY(-50%);
-		-moz-transform: translateY(-50%);
-		-o-transform: translateY(-50%);
-		transform: translateY(-50%);
-	}
 }
 </style>
