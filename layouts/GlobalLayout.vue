@@ -29,6 +29,7 @@
 <script>
 import Header from "@theme/global-components/Header.vue";
 import Footer from "@theme/global-components/Footer.vue";
+import Vue from "vue"
 
 export default {
 	components: {
@@ -39,7 +40,7 @@ export default {
 		layout() {
 			const layout = this.getLayout();
 			this.setGlobalInfo("layout", layout);
-			return layout;
+			return Vue.component(layout);
 		},
 	},
 	methods: {
