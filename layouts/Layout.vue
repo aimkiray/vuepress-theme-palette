@@ -1,25 +1,41 @@
 <template>
 	<div>
-        <div class="quotation-loading" ref="quotationLoading"></div>
-		<div class="quotation-wrapper" ref="quotation">
-			<div class="row-quotation">
-				<div class="quotation">“</div>
+		<div
+			v-if="$currentTag && tagFont"
+			class="tag-wrapper"
+			ref="tagName"
+			key="tagName"
+		>
+			<div class="tag-name">
+				# {{ $currentTag.key }}
+			</div>
+		</div>
+		<div
+			v-else-if="!$currentTag && quoteFont"
+			class="quote-wrapper"
+			ref="quote"
+			key="quote"
+		>
+			<div class="row-quote">
+				<div class="quote-mark">“</div>
 				<div class="hitokoto">
 					{{ insertSpacing(sentence.hitokoto) }}
 				</div>
-				<div class="quotation quotation-right">”</div>
+				<div class="quote-mark quote-right">”</div>
 			</div>
 
 			<div class="row-from">
 				<div class="from-holder"></div>
-				<div class="quotation-from">
+				<div class="quote-from">
 					「{{ sentence.from }}」from hitokoto
 				</div>
 			</div>
 		</div>
+		<div v-else class="face-place"></div>
 
 		<div class="nyaa-wrapper">
-			<span class="nyaa" v-on:click="getSentence"></span><span class="nyaa nyaa-right" v-on:click="getSentence"></span>
+			<span class="nyaa" v-on:click="getSentence"></span
+			><span class="nyaa nyaa-right" v-on:click="getSentence"></span>
 		</div>
 		<div class="page-wrapper">
 			<div class="post-list">
@@ -150,6 +166,7 @@
 import dayjs from "dayjs";
 import axios from "axios";
 import dotGothic16Font from "../fonts/DotGothic16.woff2";
+import minecraftTen from "../fonts/MinecraftTen.woff2";
 
 export default {
 	name: "List",
@@ -200,65 +217,112 @@ export default {
 				hitokoto: "404040404040404040404",
 				from: "404",
 			},
+			quoteFont: 0,
+			tagFont: 0,
 		};
 	},
 	mounted() {
-        this.$nextTick(function () {
-			this.$emit('dom-updated')
+		this.$nextTick(function () {
+			this.$emit("dom-updated");
 		});
-		axios
-			.get(dotGothic16Font, { responseType: "arraybuffer" })
-			.then((response) => {
-				var base64String = btoa(
-					new Uint8Array(response.data).reduce(
-						(data, byte) => data + String.fromCharCode(byte),
-						""
-					)
-                );
-				var fontCode =
-					"@font-face { font-family: 'DotGothic16'; src: url('data:application/font-woff2;charset=utf-8;base64," +
-					base64String +
-					"') format('woff2')}";
-				var styleElement = document.createElement("style");
-				if (styleElement.styleSheet) {
-					styleElement.styleSheet.cssText = fontCode;
-				} else {
-					styleElement.innerHTML = fontCode;
-				}
-				document.head.appendChild(styleElement);
-                this.$refs.quotationLoading.style.display = "none";
-				this.$refs.quotation.style.fontFamily = "DotGothic16";
-				this.$refs.quotation.style.display = "table";
-			});
+
+		if (
+			!document.getElementById("dotGothic16") ||
+			!document.getElementById("minecraftTen")
+		) {
+			axios
+				.get(dotGothic16Font, { responseType: "arraybuffer" })
+				.then((response) => {
+					const base64String = btoa(
+						new Uint8Array(response.data).reduce(
+							(data, byte) => data + String.fromCharCode(byte),
+							""
+						)
+					);
+					const fontCode =
+						"@font-face { font-family: 'DotGothic16'; src: url('data:application/font-woff2;charset=utf-8;base64," +
+						base64String +
+						"') format('woff2')}";
+					let styleElement = document.createElement("style");
+					styleElement.id = "dotGothic16";
+					if (styleElement.styleSheet) {
+						styleElement.styleSheet.cssText = fontCode;
+					} else {
+						styleElement.innerHTML = fontCode;
+					}
+					document.head.appendChild(styleElement);
+					this.quoteFont = 1;
+				});
+
+			axios
+				.get(minecraftTen, { responseType: "arraybuffer" })
+				.then((response) => {
+					const base64String = btoa(
+						new Uint8Array(response.data).reduce(
+							(data, byte) => data + String.fromCharCode(byte),
+							""
+						)
+					);
+					const fontCode =
+						"@font-face { font-family: 'MinecraftTen'; src: url('data:application/font-woff2;charset=utf-8;base64," +
+						base64String +
+						"') format('woff2')}";
+					let styleElement = document.createElement("style");
+					styleElement.id = "minecraftTen";
+					if (styleElement.styleSheet) {
+						styleElement.styleSheet.cssText = fontCode;
+					} else {
+						styleElement.innerHTML = fontCode;
+					}
+					document.head.appendChild(styleElement);
+					this.tagFont = 1;
+				});
+		} else {
+			this.quoteFont = 1;
+			this.tagFont = 1;
+		}
 		this.getSentence();
 	},
 };
 </script>
 
 <style lang="stylus" scoped>
-.quotation-loading {
-    height: 5rem;
+.face-place {
+	height: 5rem;
 }
 
-.quotation-wrapper {
+.tag-wrapper {
 	margin: auto;
-    display: none;
 	height: 5rem;
+	font-family: 'MinecraftTen';
 
-	.row-quotation {
+	.tag-name {
+		text-align: center;
+		font-size: 3rem;
+		color: $link-color;
+	}
+}
+
+.quote-wrapper {
+	margin: auto;
+	height: 5rem;
+	display: table;
+	font-family: 'DotGothic16';
+
+	.row-quote {
 		display: table-row;
 
-		.quotation {
+		.quote-mark {
 			display: table-cell;
 			vertical-align: top;
-			color: $border-color;
+			color: $link-color;
 			font-size: 2rem;
 			font-weight: bold;
 			text-align: left;
 			padding: 0.5rem 0;
 			line-height: 100%;
 
-			&.quotation-right {
+			&.quote-right {
 				vertical-align: bottom;
 				line-height: 0;
 			}
@@ -268,7 +332,7 @@ export default {
 			display: table-cell;
 			text-align: left;
 			font-size: 1.5rem;
-			color: $border-color;
+			color: $link-color;
 			padding: 0 1rem;
 			vertical-align: middle;
 		}
@@ -277,7 +341,7 @@ export default {
 	.row-from {
 		display: table-row;
 
-		.quotation-from {
+		.quote-from {
 			display: table-cell;
 			font-size: smaller;
 			padding-left: 1.25rem;
@@ -313,13 +377,16 @@ export default {
 }
 
 .post-title {
+	// border: 2px solid $bg-color;
+	background-color: $bg-color;
+
 	a {
 		font-family: $fonts-serif;
 		font-size: $title-font-size;
 		font-weight: 600;
-		cursor: pointer;
 		background-color: $accent-color;
-		padding: 0 1rem 0 0.5rem;
+		cursor: pointer;
+		padding: 0 0.5rem;
 		display: inline-block;
 		color: white;
 		transition: all 0.2s;
