@@ -17,7 +17,29 @@
 					>#{{ tag }}</router-link
 				>
 			</div>
-			<Comment />
+			<script
+				src="https://utteranc.es/client.js"
+				repo="aimkiray/blog-comments"
+				issue-term="pathname"
+				theme="boxy-light"
+				crossorigin="anonymous"
+				async
+			></script>
+			<!-- <Giscus
+				id="comments"
+				repo="aimkiray/blog-comments"
+				repoId="R_kgDOGTdEWg"
+				category="General"
+				categoryId="DIC_kwDOGTdEWs4CR3R2"
+				mapping="pathname"
+                term="40404040404"
+				reactionsEnabled="1"
+				emitMetadata="0"
+				inputPosition="top"
+				theme="light_high_contrast"
+				lang="en"
+				loading="lazy"
+			/> -->
 		</div>
 
 		<Toc />
@@ -25,13 +47,11 @@
 </template>
 
 <script>
-import { Comment } from "@vuepress/plugin-blog/lib/client/components";
-import Toc from "@theme/global-components/Toc.vue";
+import Toc from "@theme/components/Toc.vue";
 import dayjs from "dayjs";
 
 export default {
 	components: {
-		Comment,
 		Toc,
 	},
 	methods: {
@@ -46,23 +66,22 @@ export default {
 			return [tags];
 		},
 	},
-	mounted() {
-		this.$nextTick(function () {
-			this.$emit("dom-updated");
-		});
-	},
 };
 </script>
 
 
 <style lang="stylus">
+.utterances {
+	max-width: 1024px;
+}
+
 .post-wrapper {
 	max-width: 50rem;
 	margin: 0 auto;
-	padding: 0 0.5rem;
+	padding: 2.5rem 5rem;
 
-	@media (min-width: 768px) {
-		padding: 2.5rem 5rem;
+	@media only screen and (max-width: $small-width) {
+		padding: 0 0.5rem;
 	}
 }
 
@@ -117,6 +136,8 @@ ul, ol {
 
 li {
 	margin: 0.2rem 0;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 kbd {
@@ -173,14 +194,20 @@ h3 {
 
 h4 {
 	font-size: 1.125rem;
+
+	a.header-anchor {
+		margin-left: -1.125rem;
+		opacity: 0;
+	}
 }
 
-h5 {
+h5, h6 {
 	font-size: 1rem;
-}
 
-h6 {
-	font-size: 1rem;
+	a.header-anchor {
+		margin-left: -1rem;
+		opacity: 0;
+	}
 }
 
 p {
@@ -194,7 +221,7 @@ a.header-anchor {
 		text-decoration: none;
 	}
 
-	@media (max-width: $mobile-width) {
+	@media only screen and (max-width: $small-width) {
 		opacity: 0;
 	}
 }

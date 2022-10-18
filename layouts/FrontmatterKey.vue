@@ -61,10 +61,6 @@ export default {
 
 			el.style.fontSize = `${fontSize}px`;
 		});
-
-        this.$nextTick(function () {
-			this.$emit("dom-updated");
-		});
 	},
 };
 </script>

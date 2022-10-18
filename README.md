@@ -1,7 +1,8 @@
 # Enjoy Guide
 
-简洁优雅的博客主题✕  
-简陋够用的博客主题✓
+- 简陋够用的博客主题✕
+- 简洁优雅的博客主题✓
+
 
 ## Quick Start
 
@@ -27,7 +28,7 @@ Step 3: Develop & Build
 # Run localhost
 yarn dev
 
-# Build your VP blog
+# Build your blog
 yarn build
 ```
 

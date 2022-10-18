@@ -14,11 +14,6 @@
 
 <script>
 export default {
-	mounted() {
-		this.$nextTick(function () {
-			this.$emit('dom-updated')
-		});
-	},
 	methods: {
 		findAkari() {
 			if (this.$refs.notFound.className == "default-drop-shadow") {
@@ -45,11 +40,13 @@ export default {
 	}
 
 	.default-drop-shadow {
+        // visibility: visible;
 		filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
 	}
 
 	.excited-drop-shadow {
-		filter: drop-shadow(100px 0 0 rgba(0, 0, 0, 0.3));
+        // visibility: hidden;
+        filter: drop-shadow(0 -38px 0 rgba(0, 0, 0, 0.3));
 	}
 }
 </style>

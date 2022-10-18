@@ -18,7 +18,7 @@ module.exports = themeConfig => {
             },
         ],
         summary: themeConfig.summary === undefined ? true : themeConfig.summary,
-        pwa: !!themeConfig.pwa,
+        // pwa: !!themeConfig.pwa,
     });
 
     /**
@@ -42,12 +42,6 @@ module.exports = themeConfig => {
         ],
         globalPagination: {
             lengthPerPage: 6,
-        },
-        comment: {
-            // Which service you'd like to use
-            service: 'disqus',
-            // The owner's name of repository to store the issues and comments.
-            shortname: 'meowwoo',
         },
     };
 
@@ -95,22 +89,9 @@ module.exports = themeConfig => {
     const enableSmoothScroll = themeConfig.smoothScroll === true
 
     const plugins = [
-        '@vuepress/plugin-nprogress',
         ['@vuepress/medium-zoom', true],
-        [
-            '@vuepress/search',
-            {
-                searchMaxSuggestions: 10,
-            },
-        ],
         ['@vuepress/blog', blogPluginOptions],
         ['smooth-scroll', enableSmoothScroll],
-        [
-            '@vuepress/google-analytics',
-            {
-                'ga': 'UA-110966400-1'
-            }
-        ],
         ['@vuepress/back-to-top'],
         'vuepress-plugin-mathjax',
         {
@@ -124,15 +105,15 @@ module.exports = themeConfig => {
     /**
      * Enable pwa
      */
-    if (themeConfig.pwa) {
-        plugins.push([
-            '@vuepress/pwa',
-            {
-                serviceWorker: true,
-                updatePopup: true,
-            },
-        ])
-    }
+    // if (themeConfig.pwa) {
+    //     plugins.push([
+    //         '@vuepress/pwa',
+    //         {
+    //             serviceWorker: true,
+    //             updatePopup: true,
+    //         },
+    //     ])
+    // }
 
     const config = {
         plugins,

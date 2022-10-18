@@ -16,7 +16,7 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
 });
 
 module.exports = {
-    title: 'Buster', // Title for the site. This will be displayed in the navbar.
+    title: 'aimkiray', // Title for the site. This will be displayed in the navbar.
     postcss: {
         plugins: [
             require("autoprefixer"),
@@ -38,16 +38,12 @@ module.exports = {
                 link: '/404/',
             },
             {
-                text: 'Github',
+                text: 'Git',
                 link: 'https://github.com/aimkiray',
             },
         ],
         sitemap: {
             hostname: 'https://meowwoo.com/'
         },
-        smoothScroll: true,
     },
-    configureWebpack: {
-        devtool: 'source-map'
-    }
 };

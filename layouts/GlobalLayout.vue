@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div ref="globalWrapper">
 		<div class="la-pacman la-2x" ref="loading">
 			<div></div>
 			<div></div>
@@ -17,37 +17,49 @@
 				<span class="a-ear">▲</span>
 			</div>
 
-			<div class="main-wrapper" :style="borderRadius">
-				<component :is="layout" v-on:dom-updated="showAll" />
+			<div class="main-wrapper" :style="{ borderTopLeftRadius: borderRadius, borderTopRightRadius: borderRadius }">
+				<component :is="layout" />
+                <!-- <DefaultGlobalLayout /> -->
 			</div>
 
 			<Footer class="footer" />
 		</div>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110966400-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-110966400-1');
+        </script>
+
 	</div>
 </template>
 
 <script>
-import Header from "@theme/global-components/Header.vue";
-import Footer from "@theme/global-components/Footer.vue";
-import Vue from "vue"
+// import GlobalLayout from '@app/components/GlobalLayout.vue'
+import Header from "@theme/components/Header.vue";
+import Footer from "@theme/components/Footer.vue";
+import Vue from "vue";
 
 export default {
 	components: {
 		Header,
 		Footer,
 	},
+	data() {
+		return {
+			borderRadius: "49% 0",
+		};
+	},
 	computed: {
 		layout() {
 			const layout = this.getLayout();
-			this.setGlobalInfo("layout", layout);
 			return Vue.component(layout);
 		},
 	},
 	methods: {
-		showAll() {
-			this.$refs.loading.style.display = "none";
-			this.$refs.globalLayout.style.display = "flex";
-		},
 		getLayout() {
 			if (this.$page.path) {
 				const layout = this.$page.frontmatter.layout;
@@ -62,68 +74,42 @@ export default {
 			}
 			return "NotFound";
 		},
-		/**
-		 * Set global info in `window.__VUEPRESS__` for debugging.
-		 *
-		 * @param {string}key
-		 * @param {any} value
-		 */
-		setGlobalInfo(key, value) {
-			if (typeof window === "undefined" || !window.__VUEPRESS__) {
-				return;
-			}
-			window.__VUEPRESS__[key] = value;
-		},
-	},
-	data() {
-		return {
-			screenWidth: document.body.clientWidth,
-			radiusSize: 30,
-			borderRadius: {
-				borderTopLeftRadius: "49% 32px",
-				borderTopRightRadius: "49% 32px",
-			},
-		};
-	},
-	mounted() {
-		const radiusInfo =
-			"49% " +
-			parseInt(
-				((document.body.clientWidth - 485) * 215 + 15520) /
-					document.body.clientWidth
-			) +
-			"px";
-		this.borderRadius.borderTopLeftRadius = radiusInfo;
-		this.borderRadius.borderTopRightRadius = radiusInfo;
-		const that = this;
-		window.onresize = () => {
-			return (() => {
-				window.screenWidth = document.body.clientWidth;
-				that.screenWidth = window.screenWidth;
-			})();
-		};
-	},
-	watch: {
-		screenWidth(val) {
+		setCat() {
 			if (!this.timer) {
-				this.screenWidth = val;
 				this.timer = true;
 				let that = this;
 				setTimeout(function () {
-					const radiusInfo =
-						"49% " +
-						parseInt(
-							((document.body.clientWidth - 485) * 215 + 15520) /
-								document.body.clientWidth
-						) +
-						"px";
-					that.borderRadius.borderTopLeftRadius = radiusInfo;
-					that.borderRadius.borderTopRightRadius = radiusInfo;
+					that.catRadius();
 					that.timer = false;
-				}, 500);
+				}, 200);
 			}
 		},
+		catRadius() {
+			const screenWidth = document.body.clientWidth;
+			const radiusInfo =
+				"49% " +
+				parseInt(((screenWidth - 485) * 215 + 15520) / screenWidth) +
+				"px";
+			this.borderRadius = radiusInfo;
+		},
 	},
+	mounted() {
+		this.catRadius();
+		window.addEventListener("resize", this.setCat);
+		// this.refreshCat = setInterval(() => {
+		// 	this.setCat();
+		// }, 200);
+
+		// this.$nextTick(function () {
+
+		// 	this.$refs.loading.style.display = "none";
+		// 	this.$refs.globalLayout.style.display = "flex";
+		// });
+	},
+	// destroyed() {
+	// 	window.removeEventListener("resize", this.setCat);
+	// 	// return clearInterval(this.refreshCat);
+	// },
 };
 </script>
 
@@ -141,7 +127,7 @@ html {
 
 .global-layout {
 	position: relative;
-	display: none;
+	display: flex;
 	height: 100vh;
 	flex-direction: column;
 }
@@ -156,17 +142,35 @@ html {
 	background: no-repeat linear-gradient($bg-color, #fff);
 	background-size: 100% 30rem;
 	box-shadow: rgba(0, 0, 0, 0.01) 0 -0.1rem 0.1rem, rgba(0, 0, 0, 0.04) 0 -0.25rem 0.25rem, rgba(0, 0, 0, 0.04) 0 -1rem 1rem, rgba(0, 0, 0, 0.01) 0 -1.5rem 1.5rem;
+
+	@media only screen and (max-width: $small-width) {
+		padding-top: 4rem;
+	}
+
+	@media only screen and (max-device-width: $mobile-width) {
+		padding-top: 2rem;
+	}
 }
 
 .cat-ear {
 	font-family: monospace;
 	text-transform: uppercase;
 	text-align: center;
-	letter-spacing: 5rem;
 	position: relative;
 	bottom: 3.5rem;
+	letter-spacing: 5rem;
 	height: 0;
 	text-shadow: rgba(0, 0, 0, 0.01) 0 -0.1rem 0.1rem, rgba(0, 0, 0, 0.04) 0 -0.5rem 0.5rem;
+
+	@media only screen and (max-width: $small-width) {
+		bottom: 3rem;
+		letter-spacing: 4rem;
+	}
+
+	@media only screen and (max-device-width: $mobile-width) {
+		bottom: 2rem;
+		letter-spacing: 2rem;
+	}
 }
 
 @-moz-document url-prefix() {
@@ -181,6 +185,14 @@ html {
 	font-size: 12rem;
 	line-height: 0;
 	z-index: 1;
+
+	@media only screen and (max-width: $small-width) {
+		font-size: 10rem;
+	}
+
+	@media only screen and (max-device-width: $mobile-width) {
+		font-size: 8rem;
+	}
 }
 
 /*
@@ -197,7 +209,7 @@ html {
 
 .la-pacman {
 	margin: auto;
-	display: block;
+	display: none;
 	font-size: 0;
 	color: $link-color;
 }

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Sticker from "./Sticker.vue";
+import Sticker from "../components/Sticker.vue";
 let initTop;
 
 // get offset top
@@ -94,7 +94,6 @@ export default {
 			if (dom) window.scrollTo(0, getAbsoluteTop(dom) - 20);
 		};
 		window.addEventListener("scroll", this._onScroll);
-		// window.addEventListener('hashchange', this._onHashChange);
 	},
 
 	beforeDestroy() {
@@ -160,7 +159,7 @@ export default {
 
 .post-toc {
 	position: fixed;
-	display: none;
+	display: block;
 	max-height: 100vh;
 	max-width: 220px;
 	overflow-y: auto;
@@ -175,6 +174,10 @@ export default {
 	border-left: none;
 	background: linear-gradient(to left, #ffefef, #ffefef) left top no-repeat, linear-gradient(to bottom, #ffefef, #ffefef) left bottom no-repeat;
 	background-size: 2px 1rem, 2px 1rem;
+
+	@media only screen and (max-width: $small-width) {
+		display: none;
+	}
 
 	.post-toc-item {
 		position: relative;
@@ -213,17 +216,26 @@ export default {
 		}
 	}
 
-	for i in range(3, 6) {
-		.post-toc-h{i} a {
-			padding-left: 1rem * (i - 2);
-		}
+    .post-toc-h3 a {
+		padding-left: 1rem;
 	}
-}
 
-// for post-toc
-@media (min-width: $mobile-width) {
-	.post-toc {
-		display: block;
+    .post-toc-h4 a {
+		padding-left: 2rem;
 	}
+
+    .post-toc-h5 a {
+		padding-left: 3rem;
+	}
+
+    .post-toc-h6 a {
+		padding-left: 4rem;
+	}
+
+	// for i in (3..6) {
+	// 	.post-toc-h{i} a {
+	// 		padding-left: 1rem * (i - 2);
+	// 	}
+	// }
 }
 </style>
