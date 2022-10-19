@@ -1,7 +1,22 @@
-# Enjoy Guide
+年久失修，请移步 [Nuxt 3 版本](https://github.com/aimkiray/nuxt-theme-blog)
 
-- 简陋够用的博客主题✕
-- 简洁优雅的博客主题✓
+简陋够用的博客主题✕
+
+简洁优雅的博客主题✓
+
+## Screen Shot
+
+- 文章列表（一言来自 hitokoto）
+
+![index](./index.png)
+
+- 文章
+
+![index](./article.png)
+
+- 标签
+
+![index](./tag.png)
 
 
 ## Quick Start
@@ -33,7 +48,3 @@ yarn build
 ```
 
 By default, VuePress dev server is listening at `http://localhost:8080/`, whereas the built files will be in `docs/.vuepress/dist`.
-
-## Demo
-
-[My blog](https://meowwoo.com)
